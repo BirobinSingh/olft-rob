@@ -1,3 +1,37 @@
+# name: Deploy to EC2
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     defaults:
+#       run:
+#         working-directory: ./
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: 20
+#       - name: NPM Install
+#         run: npm install
+#       - name: NPM Install Angular
+#         run: npm install -g @angular/cli > /dev/null
+#       - name: NPM build Angular
+#         run: npm run build
+#       - name: Deploy to EC2 instance
+#         uses: easingthemes/ssh-deploy@v2.1.5
+#         with:
+#           REMOTE_HOST: 13.126.0.40
+#           REMOTE_USER: ubuntu
+#           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+#           SOURCE: dist/olft
+#           TARGET: /var/www/html/
+
+
 name: Deploy to EC2
 
 on:
@@ -16,17 +50,17 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20
-      - name: NPM Install
+      - name: Install Dependencies
         run: npm install
-      - name: NPM Install Angular
-        run: npm install -g @angular/cli > /dev/null
-      - name: NPM build Angular
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+      - name: Build Angular Project
         run: npm run build
-      - name: Deploy to EC2 instance
+      - name: Deploy to EC2
         uses: easingthemes/ssh-deploy@v2.1.5
         with:
           REMOTE_HOST: 13.126.0.40
           REMOTE_USER: ubuntu
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          SOURCE: dist/olft
+          SOURCE: dist/olft # Replace <project-name> with the actual folder name
           TARGET: /var/www/html/
