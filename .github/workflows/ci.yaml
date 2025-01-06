@@ -62,5 +62,5 @@ jobs:
           REMOTE_HOST: 13.126.0.40
           REMOTE_USER: ubuntu
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          SOURCE: dist/olft # Replace <project-name> with the actual folder name
+          SOURCE: dist/olft/* # Replace <project-name> with the actual folder name
           TARGET: /var/www/html/
